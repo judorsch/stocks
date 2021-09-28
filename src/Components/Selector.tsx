@@ -7,13 +7,13 @@ export function Selector(): JSX.Element{
     return(
         <Col>
             <h2>Index Options</h2>
-            <Button onClick={test}>DOW</Button>
-            <Button>S&P</Button>
-            <Button>Nasdaq</Button>
-            <Button>Russel</Button>
-            <Button>Gold</Button>
-            <Button>Treasury Bonds</Button>
-            <Button>Other</Button>
+            <Button className = 'm-4' onClick={test}>DJIA</Button>
+            <Button className = 'm-4'>S&P 500</Button>
+            <Button className = 'm-4'>NASDAQ</Button>
+            <Button className = 'm-4'>Russell 2000</Button>
+            <Button className = 'm-4'>Gold and Silver</Button>
+            <Button className = 'm-4'>10 Year Treasury Yield</Button>
+            <Button className = 'm-4'>Other</Button>
         </Col>
     )
 }
