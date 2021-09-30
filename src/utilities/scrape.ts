@@ -1,4 +1,4 @@
-
+import axios from "axios";
 
 export function getStock(type:string, symbol:string):Array<number>{
     let url1;
