@@ -5,12 +5,15 @@ interface addStock{
     visible:boolean,
     setVisible: (b:boolean) =>void,
     generateResults: (s1:string, s2:string)=>void,
+    result: boolean,
+    showResult: (b:boolean) =>void
 }
 
-export function StockPicker({visible, setVisible, generateResults}: addStock): JSX.Element{
+export function StockPicker({visible, setVisible, generateResults, result, showResult}: addStock): JSX.Element{
     const [type1, setType1] = useState<string>("Type");
     const [tick1, setTick1] = useState<string>("Ticker Symbol");
     function saveStock(){
+        showResult(true);
         generateResults(type1, tick1);
         setVisible(false);
     }

@@ -24,7 +24,7 @@ function App() {
       <Row>
         <Selector showModal ={setVisible} generateResults = {showResults} result = {result} showResult = {setResult}></Selector>
         <Results result = {result}></Results>
-        <StockPicker visible = {visible} setVisible ={setVisible} generateResults = {showResults}></StockPicker>
+        <StockPicker visible = {visible} setVisible ={setVisible} generateResults = {showResults} result = {result} showResult = {setResult}></StockPicker>
       </Row>
     </Container>
   );
