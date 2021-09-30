@@ -13,8 +13,10 @@ interface stockResult{
     result: boolean;
     vals: Array<number>;
     tick:string;
+    url:boolean;
+    actualURL: string;
 }
-export function Results({result, vals, tick}: stockResult): JSX.Element{
+export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.Element{
     const [subtitle, setSubTitle] = useState<string>("Today");
     const [graphShown, showGraph] = useState<boolean>(false);
     function updatePage(days:string, show:boolean){
@@ -28,7 +30,15 @@ export function Results({result, vals, tick}: stockResult): JSX.Element{
     return(
         <Col>
             <h2>Stock Results</h2>
-            <Navbar bg="primary" variant="dark">
+            {url && <Card>
+                <Card.Body>
+                    <Card.Title>Ticker Symbol: {tick}</Card.Title>
+                    <Card.Text>
+                    To access data on your selected stock from the last year, click <a href={actualURL}>here.</a>  The data will be downloaded to your computer.  If the CSV file that is downloaded is empty, you did not enter either the correct type, ticker symbol, or that stock is not supported.
+                    </Card.Text>
+                </Card.Body>
+            </Card>}
+            {result && <Navbar bg="primary" variant="dark">
                 <Container>
                 <Nav className="me-auto">
                     <Button onClick={()=> updatePage("Today", false)}>Today</Button>
@@ -38,7 +48,7 @@ export function Results({result, vals, tick}: stockResult): JSX.Element{
                     <Button onClick={()=> updatePage("1 Year", true)}>1 Year</Button>
                 </Nav>
                 </Container>
-            </Navbar>
+            </Navbar>}
             {result && <Card>
                 <Card.Body>
                     <Card.Title>Ticker Symbol: {tick}</Card.Title>

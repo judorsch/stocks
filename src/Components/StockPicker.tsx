@@ -7,13 +7,15 @@ interface addStock{
     generateResults: (s1:string, s2:string)=>void,
     result: boolean,
     showResult: (b:boolean) =>void
+    url: boolean;
+    setUrl: (b:boolean) =>void
 }
 
-export function StockPicker({visible, setVisible, generateResults, result, showResult}: addStock): JSX.Element{
+export function StockPicker({visible, setVisible, generateResults, result, showResult, url, setUrl}: addStock): JSX.Element{
     const [type1, setType1] = useState<string>("Type");
     const [tick1, setTick1] = useState<string>("Ticker Symbol");
     function saveStock(){
-        showResult(true);
+        setUrl(true);
         generateResults(type1, tick1);
         setVisible(false);
     }
@@ -38,7 +40,7 @@ export function StockPicker({visible, setVisible, generateResults, result, showR
       
         <Modal.Footer>
           <Button variant="secondary" onClick={hide}>Close</Button>
-          <Button variant="primary" onClick={saveStock}>Save changes</Button>
+          <Button variant="primary" onClick={saveStock}>Get Data</Button>
         </Modal.Footer>
       </Modal>)
 }

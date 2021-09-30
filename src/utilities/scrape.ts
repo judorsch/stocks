@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function getStock(type:string, symbol:string):Array<number>{
+export function getStockURL(type:string, symbol:string):string{
     let url1;
     if(type === "company"){
         url1 = "";
@@ -17,6 +17,6 @@ export function getStock(type:string, symbol:string):Array<number>{
     let url = "https://www.wsj.com/market-data/quotes/" + url1 + symbol + "/historical-prices/download?num_rows=365&range_days=365&endDate=" +day2;
     console.log(url);
     //run get request
-    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    return url
 
 }
