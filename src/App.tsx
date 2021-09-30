@@ -5,7 +5,7 @@ import {Container, Row} from 'react-bootstrap';
 import {Selector} from './Components/Selector'
 import { Results } from './Components/Results';
 import { StockPicker } from './Components/StockPicker';
-import { getStockURL } from './utilities/scrape';
+import { getStock, getStockURL } from './utilities/scrape';
 
 function App() {
   const [visible, setVisible] = useState<boolean>(false);
@@ -18,6 +18,7 @@ function App() {
   function showResults(typ:string, symb:string):void{
     setActualURL(getStockURL(typ, symb));
     setTick(symb);
+    setVals(getStock(typ, symb));
     //have the results object appear
     //pass info to results
   }

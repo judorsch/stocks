@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import {Button, Card, Col, Container, Nav, Navbar} from 'react-bootstrap';
-import {
+/*import {
     Chart,
     Bars, Cloud, Dots, Labels, Lines, Pies, RadialLines, Ticks, Title,
     Layer, Animate, Transform, Handlers, DropShadow, Gradient
-  } from 'rumble-charts';
+  } from 'rumble-charts';*/
+  import {Line} from 'react-chartjs-2';
 
 //Navbar came from https://react-bootstrap.github.io/components/navbar/
 //Bootstrap card came from https://react-bootstrap.github.io/components/cards/
@@ -24,9 +25,13 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
         showGraph(show);
 
     }
-    const series = [{
-        data: vals
-      }];
+    const data = {
+        datasets: [{
+            data: vals,
+            fill:false,
+          },
+        ],
+      };
     return(
         <Col>
             <h2>Stock Results</h2>
@@ -57,10 +62,7 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
                     Some quick example text to build on the card title and make up the bulk of
                     the card's content.
                     </Card.Text>
-                    {graphShown && <Chart width={600} height={250} series={series} minY={0} maxY={20}>
-                        <Lines />
-                        <Dots />
-                    </Chart>}
+                    {graphShown && <Line data ={data} />}
                 </Card.Body>
             </Card>}
         </Col>
