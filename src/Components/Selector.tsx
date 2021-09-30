@@ -1,8 +1,13 @@
 import {Button, Col} from 'react-bootstrap';
 
-export function Selector({showModal}:{showModal:(b:boolean)=>void}): JSX.Element{
-    function test(){
-        console.log("Hi")
+interface selection{
+    showModal: (b:boolean)=>void,
+    generateResults: (s1:string, s2:string)=>void,
+}
+
+export function Selector({showModal, generateResults}:selection): JSX.Element{
+    function saveStock(type:string, symbol:string):void{
+        generateResults(type, symbol);
     }
     function addStock(){
         showModal(true);
@@ -10,12 +15,12 @@ export function Selector({showModal}:{showModal:(b:boolean)=>void}): JSX.Element
     return(
         <Col>
             <h2>Index Options</h2>
-            <Button className = 'm-4' onClick={test}>DJIA</Button>
-            <Button className = 'm-4'>S&P 500</Button>
-            <Button className = 'm-4'>NASDAQ</Button>
-            <Button className = 'm-4'>Russell 2000</Button>
-            <Button className = 'm-4'>Gold and Silver</Button>
-            <Button className = 'm-4'>10 Year Treasury Yield</Button>
+            <Button className = 'm-4' onClick={() => {saveStock("index", "DJIA")}}>DJIA</Button>
+            <Button className = 'm-4' onClick={() => {saveStock("index", "SPX")}}>S&P 500</Button>
+            <Button className = 'm-4' onClick={() => {saveStock("index", "COMP")}}>NASDAQ</Button>
+            <Button className = 'm-4' onClick={() => {saveStock("index", "RUT")}}>Russell 2000</Button>
+            <Button className = 'm-4' onClick={() => {saveStock("index", "XAU")}}>Gold and Silver</Button>
+            <Button className = 'm-4' onClick={() => {saveStock("bond", "BX/TMUBMUSD10Y")}}>10 Year Treasury Yield</Button>
             <Button className = 'm-4' onClick={addStock}>Other</Button>
         </Col>
     )

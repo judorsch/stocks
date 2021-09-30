@@ -11,8 +11,9 @@ function App() {
   const [visible, setVisible] = useState<boolean>(false);
   const [type, setType] = useState<string>("Type");
   const [tick, setTick] = useState<string>("Ticker Symbol");
-  function showResults(typ:string, symb:string){
-    const nums = getStock(typ, symb);
+  const [vals, setVals] = useState<Array<number>>([]);
+  function showResults(typ:string, symb:string):void{
+    setVals(getStock(typ, symb));
     //run the get request
     //have the results object appear
     //pass info to results
@@ -21,7 +22,7 @@ function App() {
     <Container className = "App">
       <h1>Stock Data</h1>
       <Row>
-        <Selector showModal ={setVisible}></Selector>
+        <Selector showModal ={setVisible} generateResults = {showResults}></Selector>
         <Results></Results>
         <StockPicker visible = {visible} setVisible ={setVisible} generateResults = {showResults}></StockPicker>
       </Row>

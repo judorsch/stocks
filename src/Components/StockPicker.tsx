@@ -5,14 +5,13 @@ interface addStock{
     visible:boolean,
     setVisible: (b:boolean) =>void,
     generateResults: (s1:string, s2:string)=>void,
-
 }
 
 export function StockPicker({visible, setVisible, generateResults}: addStock): JSX.Element{
     const [type1, setType1] = useState<string>("Type");
     const [tick1, setTick1] = useState<string>("Ticker Symbol");
     function saveStock(){
-        generateResults("etf", "SPY");
+        generateResults(type1, tick1);
         setVisible(false);
     }
     const hide = ()=> setVisible(false);
