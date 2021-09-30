@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import {Button, Card, Col, Container, Nav, Navbar} from 'react-bootstrap';
-/*import {
+import {
     Chart,
     Bars, Cloud, Dots, Labels, Lines, Pies, RadialLines, Ticks, Title,
     Layer, Animate, Transform, Handlers, DropShadow, Gradient
-  } from 'rumble-charts';*/
-  import {Line} from 'react-chartjs-2';
+  } from 'rumble-charts';
 
 //Navbar came from https://react-bootstrap.github.io/components/navbar/
 //Bootstrap card came from https://react-bootstrap.github.io/components/cards/
-// Chart info came from https://www.npmjs.com/package/rumble-charts
+// Chart info came from https://rumble-charts.github.io/?path=/docs/components-graphics-lines--story-1
 interface stockResult{
     result: boolean;
     vals: Array<number>;
@@ -25,13 +24,6 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
         showGraph(show);
 
     }
-    const data = {
-        datasets: [{
-            data: vals,
-            fill:false,
-          },
-        ],
-      };
     return(
         <Col>
             <h2>Stock Results</h2>
@@ -62,7 +54,47 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
                     Some quick example text to build on the card title and make up the bulk of
                     the card's content.
                     </Card.Text>
-                    {graphShown && <Line data ={data} />}
+                    {graphShown && <Chart
+                    height={300}
+                    scaleX={{
+                        paddingEnd: 0,
+                        paddingStart: 0
+                    }}
+                    scaleY={{
+                        paddingTop: 10
+                    }}
+                    series={[
+                        {
+                        data: vals
+                        },
+                    ]}
+                    width={800}
+                    >
+                        <Layer
+                        height="80%"
+                        seriesIndex={[
+                        0
+                        ]}
+                        width="90%"
+                    >
+                        <Lines/>
+                        <Ticks
+                        axis="y"
+                        labelAttributes={{
+                            fontFamily: 'sans-serif',
+                            x: -5
+                        }}
+                        labelStyle={{
+                            dominantBaseline: 'middle',
+                            textAnchor: 'end'
+                        }}
+                        lineLength="100%"
+                        lineStyle={{
+                            stroke: 'rgba(255,255,255,0.3)'
+                        }}
+                        />
+                    </Layer>
+                    </Chart>}
                 </Card.Body>
             </Card>}
         </Col>
