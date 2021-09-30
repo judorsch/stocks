@@ -3,10 +3,13 @@ import {Button, Col} from 'react-bootstrap';
 interface selection{
     showModal: (b:boolean)=>void,
     generateResults: (s1:string, s2:string)=>void,
+    result: boolean
+    showResult: (b:boolean) =>void
 }
 
-export function Selector({showModal, generateResults}:selection): JSX.Element{
+export function Selector({showModal, generateResults, result, showResult}:selection): JSX.Element{
     function saveStock(type:string, symbol:string):void{
+        showResult(true);
         generateResults(type, symbol);
     }
     function addStock(){

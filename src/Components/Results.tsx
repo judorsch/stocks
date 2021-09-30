@@ -1,7 +1,12 @@
-import {Button, Col, Container, Nav, Navbar} from 'react-bootstrap';
+import {Button, Card, Col, Container, Nav, Navbar} from 'react-bootstrap';
 
 //Navbar came from https://react-bootstrap.github.io/components/navbar/
-export function Results(): JSX.Element{
+//Bootstrap card came from https://react-bootstrap.github.io/components/cards/
+
+interface stockResult{
+    result: boolean;
+}
+export function Results({result}: stockResult): JSX.Element{
 
     function test(){
         console.log("hi");
@@ -20,6 +25,16 @@ export function Results(): JSX.Element{
                 </Nav>
                 </Container>
             </Navbar>
+            {result && <Card>
+                <Card.Body>
+                    <Card.Title>Stock Name</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">Today</Card.Subtitle>
+                    <Card.Text>
+                    Some quick example text to build on the card title and make up the bulk of
+                    the card's content.
+                    </Card.Text>
+                </Card.Body>
+                </Card>}
         </Col>
     )
 }
