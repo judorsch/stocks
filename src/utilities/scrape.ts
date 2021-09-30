@@ -53,5 +53,5 @@ export function getStock(type:string, symbol:string):Array<number>{
     for(let i:number = 0; i < numDays; i++){
         returnVals = returnVals.concat(file[i]["Close"]);
     }
-    return returnVals;
+    return returnVals.reverse();
 }

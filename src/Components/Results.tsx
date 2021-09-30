@@ -27,7 +27,7 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
     return(
         <Col>
             <h2>Stock Results</h2>
-            {url && <Card>
+            {url && <Card >
                 <Card.Body>
                     <Card.Title>Ticker Symbol: {tick}</Card.Title>
                     <Card.Text>
@@ -68,14 +68,14 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
                         data: vals
                         },
                     ]}
-                    width={800}
+                    width={600}
                     >
                         <Layer
                         height="80%"
                         seriesIndex={[
                         0
                         ]}
-                        width="90%"
+                        width="70%"
                     >
                         <Lines/>
                         <Ticks
