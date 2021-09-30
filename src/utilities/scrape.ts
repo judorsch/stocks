@@ -17,6 +17,6 @@ export function getStock(type:string, symbol:string):Array<number>{
     let url = "https://www.wsj.com/market-data/quotes/" + url1 + symbol + "/historical-prices/download?num_rows=365&range_days=365&endDate=" +day2;
     console.log(url);
     //run get request
-    return [1, 2]
+    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 }
