@@ -15,6 +15,7 @@ function App() {
   const [vals, setVals] = useState<Array<number>>([]);
   function showResults(typ:string, symb:string):void{
     setVals(getStock(typ, symb));
+    setTick(symb);
     //have the results object appear
     //pass info to results
   }
@@ -23,7 +24,7 @@ function App() {
       <h1>Stock Data</h1>
       <Row>
         <Selector showModal ={setVisible} generateResults = {showResults} result = {result} showResult = {setResult}></Selector>
-        <Results result = {result} vals = {vals}></Results>
+        <Results result = {result} vals = {vals} tick = {tick}></Results>
         <StockPicker visible = {visible} setVisible ={setVisible} generateResults = {showResults} result = {result} showResult = {setResult}></StockPicker>
       </Row>
     </Container>
