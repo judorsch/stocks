@@ -1,3 +1,4 @@
+import { mean, variance } from 'mathjs';
 import { useState } from 'react';
 import {Button, Card, Col, Container, Nav, Navbar} from 'react-bootstrap';
 import {
@@ -18,19 +19,24 @@ interface stockResult{
 }
 export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.Element{
     const [subtitle, setSubTitle] = useState<string>("Today");
-    const [graphShown, showGraph] = useState<boolean>(false);
     const [length, setLength] = useState<number>(10);
     const [today, setToday] = useState<boolean>(true);
+    const [usedVals, setUsedVals] = useState<Array<number>>(vals);
     function updatePage(days:string, show:boolean, numDays:number){
         if(days === "Today"){
             setToday(true);
         }
+        else if(days === "1 Year"){
+            setToday(false);
+            setLength(numDays);
+            setUsedVals(vals);
+        }
         else{
             setToday(false);
             setLength(numDays);
+            setUsedVals(vals.slice((vals.length - numDays - 1), (vals.length - 1)));
         }
         setSubTitle(days);
-        showGraph(show);
     }
     return(
         <Col>
@@ -50,7 +56,7 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
                     <Button onClick={()=> updatePage("10 Days", true, 10)}>10 Days</Button>
                     <Button onClick={()=> updatePage("30 Days", true, 30)}>30 Days</Button>
                     <Button onClick={()=> updatePage("6 Months", true, Math.floor(vals.length/2))}>6 Months</Button>
-                    <Button onClick={()=> updatePage("1 Year", true, vals.length)}>1 Year</Button>
+                    <Button onClick={()=> updatePage("1 Year", true, vals.length + 1)}>1 Year</Button>
                 </Nav>
                 </Container>
             </Navbar>}
@@ -58,7 +64,19 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
                 <Card.Body>
                     <Card.Title>Ticker Symbol: {tick}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{subtitle}</Card.Subtitle>
-                    {graphShown && <Chart
+                    {today && <Card.Body>
+                        <Card.Text>
+                        Value: {vals[vals.length - 1]}
+                        </Card.Text>
+                        <Card.Text>
+                        Change: {(vals[vals.length - 2] - vals[vals.length - 1]).toFixed(2)}
+                        </Card.Text>
+                        <Card.Text>
+                        Percent Change: {(100 * (vals[vals.length - 2] - vals[vals.length - 1]) / vals[vals.length - 2]).toFixed(2) + '%'}
+                        </Card.Text>
+                        </Card.Body>}
+                    {!today && <Card.Body>
+                        <Chart
                     height={300}
                     scaleX={{
                         paddingEnd: 0,
@@ -69,7 +87,7 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
                     }}
                     series={[
                         {
-                        data: vals
+                        data: usedVals
                         },
                     ]}
                     width={600}
@@ -98,7 +116,14 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
                         }}
                         />
                     </Layer>
-                    </Chart>}
+                    </Chart>
+                    <Card.Text>
+                        Mean Value: {mean(usedVals).toFixed(2)}
+                        </Card.Text>
+                        <Card.Text>
+                        Value's Variance: {variance(usedVals).toFixed(2)}
+                        </Card.Text>
+                    </Card.Body>}
                 </Card.Body>
             </Card>}
         </Col>
