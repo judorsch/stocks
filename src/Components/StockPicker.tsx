@@ -16,6 +16,7 @@ export function StockPicker({visible, setVisible, generateResults, result, showR
     const [tick1, setTick1] = useState<string>("Ticker Symbol");
     function saveStock(){
         setUrl(true);
+        showResult(false);
         generateResults(type1, tick1);
         setVisible(false);
     }

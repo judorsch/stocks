@@ -19,10 +19,18 @@ interface stockResult{
 export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.Element{
     const [subtitle, setSubTitle] = useState<string>("Today");
     const [graphShown, showGraph] = useState<boolean>(false);
-    function updatePage(days:string, show:boolean){
+    const [length, setLength] = useState<number>(10);
+    const [today, setToday] = useState<boolean>(true);
+    function updatePage(days:string, show:boolean, numDays:number){
+        if(days === "Today"){
+            setToday(true);
+        }
+        else{
+            setToday(false);
+            setLength(numDays);
+        }
         setSubTitle(days);
         showGraph(show);
-
     }
     return(
         <Col>
@@ -38,11 +46,11 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
             {result && <Navbar bg="primary" variant="dark">
                 <Container>
                 <Nav className="me-auto">
-                    <Button onClick={()=> updatePage("Today", false)}>Today</Button>
-                    <Button onClick={()=> updatePage("10 Days", true)}>10 Days</Button>
-                    <Button onClick={()=> updatePage("30 Days", true)}>30 Days</Button>
-                    <Button onClick={()=> updatePage("6 Months", true)}>6 Months</Button>
-                    <Button onClick={()=> updatePage("1 Year", true)}>1 Year</Button>
+                    <Button onClick={()=> updatePage("Today", false, 0)}>Today</Button>
+                    <Button onClick={()=> updatePage("10 Days", true, 10)}>10 Days</Button>
+                    <Button onClick={()=> updatePage("30 Days", true, 30)}>30 Days</Button>
+                    <Button onClick={()=> updatePage("6 Months", true, Math.floor(vals.length/2))}>6 Months</Button>
+                    <Button onClick={()=> updatePage("1 Year", true, vals.length)}>1 Year</Button>
                 </Nav>
                 </Container>
             </Navbar>}
@@ -50,10 +58,6 @@ export function Results({result, vals, tick, url, actualURL}: stockResult): JSX.
                 <Card.Body>
                     <Card.Title>Ticker Symbol: {tick}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{subtitle}</Card.Subtitle>
-                    <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
-                    </Card.Text>
                     {graphShown && <Chart
                     height={300}
                     scaleX={{

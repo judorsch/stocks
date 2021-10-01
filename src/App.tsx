@@ -17,7 +17,7 @@ function App() {
   const [actualURL, setActualURL] = useState<string>("");
   function showResults(typ:string, symb:string):void{
     setActualURL(getStockURL(typ, symb));
-    setTick(symb);
+    setTick(symb.toUpperCase());
     setVals(getStock(typ, symb));
     //have the results object appear
     //pass info to results
