@@ -27,6 +27,7 @@ export function StockPicker({visible, setVisible, generateResults, result, showR
         </Modal.Header>
       
         <Modal.Body>
+            Example-  Type: etf, Ticker Symbol: SPY
         <Form>
             <Form.Group className="mb-3" controlId="addCardForm.promptTextArea">
                 <Form.Label>Type: index/etf/bond/company</Form.Label>
